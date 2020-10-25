@@ -1922,10 +1922,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['products'],
   methods: {
-    showProduct: function showProduct() {// emit show product
+    showProduct: function showProduct(product) {
+      this.$emit('showProduct', product);
     }
   }
 });
@@ -2484,40 +2488,54 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "flex flex-wrap items-stretch" },
-    _vm._l(_vm.products, function(product) {
-      return _c("div", { key: product.id, staticClass: "w-1/3 p-2" }, [
-        _c(
+  return _c("div", [
+    _vm.products.length
+      ? _c(
           "div",
-          { staticClass: "border border-gray-300 rounded p-4 h-full" },
-          [
-            _c("div", { staticClass: "flex justify-between mb-4" }, [
+          { staticClass: "flex flex-wrap items-stretch" },
+          _vm._l(_vm.products, function(product) {
+            return _c("div", { key: product.id, staticClass: "w-1/3 p-2" }, [
               _c(
-                "a",
-                {
-                  staticClass:
-                    "font-bold text-lg leading-none text-blue-500 hover:underline",
-                  on: { click: _vm.showProduct }
-                },
-                [_vm._v(_vm._s(product.name))]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "text-lg font-light text-gray-700" }, [
-                _vm._v("$" + _vm._s(product.price / 100))
-              ])
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "leading-normal" }, [
-              _vm._v(_vm._s(product.description))
+                "div",
+                { staticClass: "border border-gray-300 rounded p-4 h-full" },
+                [
+                  _c("div", { staticClass: "flex justify-between mb-4" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "font-bold text-lg leading-none text-blue-500 cursor-pointer over:underline",
+                        on: {
+                          click: function($event) {
+                            return _vm.showProduct(product)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(product.name))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "text-lg font-light text-gray-700" },
+                      [_vm._v("$" + _vm._s(product.price / 100))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "leading-normal" }, [
+                    _vm._v(_vm._s(product.description))
+                  ])
+                ]
+              )
             ])
-          ]
+          }),
+          0
         )
-      ])
-    }),
-    0
-  )
+      : _c(
+          "div",
+          { staticClass: "italic text-gray-700 text-xl text-center p-4" },
+          [_vm._v("There are no products!")]
+        )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -14907,13 +14925,15 @@ var app = new Vue({
       var _this = this;
 
       Axios.get('/product').then(function (response) {
+        _this.activeSection = 'productList';
         _this.products = response.data;
       });
     },
     myProducts: function myProducts() {
       var _this2 = this;
 
-      Axios.get('/user/product').then(function (response) {
+      Axios.get('/user').then(function (response) {
+        _this2.activeSection = 'productUserList';
         _this2.products = response.data;
       });
     },

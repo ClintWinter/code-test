@@ -22,12 +22,14 @@ const app = new Vue({
     methods: {
         allProducts() {
             Axios.get('/product').then(response => {
+                this.activeSection = 'productList';
                 this.products = response.data;
             });
         },
 
         myProducts() {
-            Axios.get('/user/product').then(response => {
+            Axios.get('/user').then(response => {
+                this.activeSection = 'productUserList';
                 this.products = response.data;
             });
         },

@@ -85,8 +85,8 @@
 
             <main id="main">
                 <product-list v-if="activeSection == 'productList'" :products="products"></product-list>
-                <product-list v-if="activeSection == 'productUserList'" :products="products"></product-list>
-                <product-new></product-new>
+                <product-list v-else-if="activeSection == 'productUserList'" :products="products"></product-list>
+                <product-new v-else-if="activeSection == 'newProduct'"></product-new>
             </main>
         </div>
     </div>

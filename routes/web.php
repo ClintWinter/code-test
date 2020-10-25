@@ -2,10 +2,11 @@
 
 use App\User;
 use App\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\RegisteredProductController;
 
 Route::get('/', function () {
     return view('app', [
@@ -16,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/product', [ProductController::class, 'index']);
 
-Route::get('/user/product', [ProductUserController::class, 'index']);
+Route::get('/user', [RegisteredProductController::class, 'index']);
 
 // Route::get()
 
