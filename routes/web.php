@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use App\User;
 use App\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('app', [

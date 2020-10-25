@@ -21,8 +21,16 @@
             </div>
 
             <div class="border border-gray-300 rounded p-2">
-                <h2 class="font-bold mb-2">Current User: {{ auth()->user()->email ?? 'N/A' }}</h2>
-                <table class="text-xs">
+                <h2 class="font-bold">Current User: {{ auth()->user()->email ?? 'N/A' }}</h2>
+
+                @auth
+                    <form action="/logout" method="POST">
+                        @csrf
+                        <button class="font-black text-blue-500 hover:underline text-xs">Log Out</button>
+                    </form>
+                @endauth
+
+                <table class="mt-2 text-xs">
                     <thead><tr>
                         <th class="pr-2 text-left">Email</th>
                         <th class="px-2 text-center">Admin</th>
@@ -31,7 +39,18 @@
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
-                                <td class="pr-2"><button class="text-blue-500 hover:underline">{{ $user->email }}</button></td>
+                                <td class="pr-2">
+                                    @guest
+                                        <form action="/login" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="email" value="{{ $user->email }}">
+                                            <input type="hidden" name="password" value="password">
+                                            <button type="submit" class="text-blue-500 hover:underline">{{ $user->email }}</button>
+                                        </form>
+                                    @else
+                                        <p>{{ $user->email }}</p>
+                                    @endguest
+                                </td>
                                 <td class="px-2 text-center">
                                     @if ($user->is_admin)
                                         <span class="text-green-500">true</span>
