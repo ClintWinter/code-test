@@ -33,7 +33,7 @@ const app = new Vue({
         },
 
         myProducts() {
-            Axios.get('/user').then(response => {
+            Axios.get('/user/product').then(response => {
                 this.activeSection = 'productUserList';
                 this.products = response.data;
             });
@@ -54,6 +54,16 @@ const app = new Vue({
             }).catch(error => {
                 console.log(error);
             });
+        },
+
+        editProduct(product) {
+            this.activeProduct = product;
+            this.activeSection = 'editProduct';
+        },
+
+        uploadImage(product) {
+            this.activeProduct = product;
+            this.activeSection = 'uploadImage';
         }
     }
 });

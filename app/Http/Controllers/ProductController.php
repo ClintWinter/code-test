@@ -88,7 +88,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validData = $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required|min:10',
+            'price' => 'required',
+        ]);
+        $validData['price'] *= 100;
+
+        if ($request->input('remove_image') == 'true') {
+            $validData['image_path'] = null;
+            $validData['image_name'] = null;
+        } elseif ($file = $request->file('image')) {
+            $path = $file->store('products');
+            $validData['image_path'] = $path;
+            $validData['image_name'] = $file->getClientOriginalName();
+        }
+
+        $product->update($validData);
+
+        return ['product' => $product];
     }
 
     /**
@@ -99,6 +117,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
     }
 }

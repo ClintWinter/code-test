@@ -99,7 +99,23 @@
                     v-on:show-product="showProduct"
                 ></product-new>
 
-                <product-show v-else-if="activeSection == 'showProduct'" :active-product="activeProduct" :user="{{ auth()->user() }}"></product-show>
+                <product-edit v-else-if="activeSection == 'editProduct'"
+                    :product="activeProduct.product"
+                    v-on:show-product="showProduct"
+                ></product-edit>
+
+                <product-show v-else-if="activeSection == 'showProduct'"
+                    :active-product="activeProduct"
+                    :user="{{ auth()->user() }}"
+                    v-on:edit-product="editProduct"
+                    v-on:all-products="allProducts"
+                    v-on:upload-image="uploadImage"
+                ></product-show>
+
+                <product-image-upload v-else-if="activeSection == 'uploadImage'"
+                    :product="activeProduct.product"
+                    v-on:show-product="showProduct"
+                ></product-image-upload>
             </main>
         </div>
     </div>

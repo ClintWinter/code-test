@@ -6,8 +6,8 @@
                 <div class="h-64 w-64 bg-center bg-cover" v-if="activeProduct.imagePath" :style="'background-image:url('+activeProduct.imagePath+')'"></div>
                 <div v-else class="h-64 w-64 border border-gray-400 bg-gray-300 flex justify-center items-center">No Image</div>
                 <div v-if="user.is_admin" class="flex justify-end space-x-4">
-                    <a :href="'/product-image/'+activeProduct.product.id+'/edit'" class="text-blue-500 hover:underline">Upload Image</a>
-                    <a :href="'/product/'+activeProduct.product.id+'/edit'" class="text-blue-500 hover:underline">Edit</a>
+                    <span @click="uploadImage" class="text-blue-500 hover:underline cursor-pointer">Upload Image</span>
+                    <span @click="editProduct" class="text-blue-500 hover:underline cursor-pointer">Edit</span>
                     <span @click="deleteProduct" class="text-blue-500 hover:underline cursor-pointer">Delete</span>
                 </div>
             </div>
@@ -34,6 +34,14 @@ export default {
     },
 
     methods: {
+        uploadImage() {
+            this.$emit('upload-image', this.activeProduct);
+        },
+
+        editProduct() {
+            this.$emit('edit-product', this.activeProduct);
+        },
+
         deleteProduct() {
             axios.delete('/product/'+this.activeProduct.product.id).then(response => {
                 this.$emit('all-products');
