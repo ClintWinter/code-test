@@ -1998,7 +1998,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    createProduct: function createProduct() {// create product
+    createProduct: function createProduct() {
+      var _this = this;
+
+      var formData = new FormData();
+      formData.append('name', this.formData.name);
+      formData.append('description', this.formData.description);
+      formData.append('price', this.formData.price);
+      formData.append('image', document.querySelector('input[name="image"]').files[0] || false);
+      axios.post('/product', formData).then(function (response) {
+        _this.$emit('show-product', response.data.product);
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
+      });
     }
   }
 });
@@ -2664,7 +2676,7 @@ var render = function() {
       _vm._v(" "),
       _vm.errors.name
         ? _c("div", { staticClass: "text-red-600 font-bold text-right" }, [
-            _vm._v(_vm._s(_vm.errors.name))
+            _vm._v(_vm._s(_vm.errors.name[0]))
           ])
         : _vm._e()
     ]),
@@ -2707,7 +2719,7 @@ var render = function() {
       _vm._v(" "),
       _vm.errors.price
         ? _c("div", { staticClass: "text-red-600 font-bold text-right" }, [
-            _vm._v(_vm._s(_vm.errors.price))
+            _vm._v(_vm._s(_vm.errors.price[0]))
           ])
         : _vm._e()
     ]),
@@ -2750,7 +2762,7 @@ var render = function() {
       _vm._v(" "),
       _vm.errors.description
         ? _c("div", { staticClass: "text-red-600 font-bold text-right" }, [
-            _vm._v(_vm._s(_vm.errors.description))
+            _vm._v(_vm._s(_vm.errors.description[0]))
           ])
         : _vm._e()
     ]),

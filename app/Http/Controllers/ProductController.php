@@ -37,7 +37,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validData = $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required|min:10',
+            'price' => 'required',
+        ]);
+        $validData['price'] *= 100;
+
+        if ($file = $request->file('image')) {
+            $path = $file->store('products');
+            $validData['image_path'] = $path;
+            $validData['image_name'] = $file->getClientOriginalName();
+        }
+
+        return ['product' => Product::create($validData)];
     }
 
     /**

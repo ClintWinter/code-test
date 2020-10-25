@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/product', [ProductController::class, 'index']);
 Route::get('/product/{product}', [ProductController::class, 'show']);
+Route::post('/product', [ProductController::class, 'store']);
 
 Route::get('/user', [RegisteredProductController::class, 'index']);
 Route::post('/user/product/{product}', [RegisteredProductController::class, 'store']);
