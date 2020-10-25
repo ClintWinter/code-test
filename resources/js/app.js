@@ -11,14 +11,29 @@ const app = new Vue({
     el: '#app',
 
     data: {
-        message: 'Hello World!',
+        activeSection: 'productList',
+        products: [],
+    },
+
+    mounted() {
+        this.allProducts();
     },
 
     methods: {
         allProducts() {
-            Axios.get('/products').then(response => {
+            Axios.get('/product').then(response => {
+                this.products = response.data;
+            });
+        },
 
-            })
+        myProducts() {
+            Axios.get('/user/product').then(response => {
+                this.products = response.data;
+            });
+        },
+
+        newProduct() {
+            this.activeSection = 'newProduct';
         }
     }
 });

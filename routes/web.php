@@ -14,7 +14,9 @@ Route::get('/', function () {
 
 Route::get('/product', [ProductController::class, 'index']);
 
-Route::get()
+Route::get('/user/product', [ProductUserController::class, 'index']);
+
+// Route::get()
 
 Auth::routes();
 

@@ -55,13 +55,19 @@
 
         <div id="app">
             <nav class="flex items-center space-x-8 pb-4 border-b border-gray-300 mb-4">
-                <a @click="allProducts" class="font-bold uppercase text-sm hover:underline">All Products</a>
-                <a @click="myProducts" href="/" class="uppercase text-sm hover:underline" v-if="{{ auth()->user()->is_subscribed ?? false }}">My Products</a>
-                <a @click="newProduct" class="uppercase text-sm hover:underline" v-if="{{ auth()->user()->is_admin ?? false }}">New Product</a>
+                <a @click="allProducts" :class="{ 'font-bold': activeSection == 'productList' }" class="uppercase text-sm hover:underline cursor-pointer">All Products</a>
+                @if (auth()->user()->is_subscribed ?? false)
+                    <a @click="myProducts" :class="{ 'font-bold': activeSection == 'productUserList' }" class="uppercase text-sm hover:underline cursor-pointer">My Products</a>
+                @endif
+                @if (auth()->user()->is_admin ?? false)
+                    <a @click="newProduct" :class="{ 'font-bold': activeSection == 'newProduct' }" class="uppercase text-sm hover:underline cursor-pointer">New Product</a>
+                @endif
             </nav>
 
             <main id="main">
-                <product-list :products="{{ $products }}"></product-list>
+                <product-list v-if="activeSection == 'productList'" :products="products"></product-list>
+                <product-list v-if="activeSection == 'productUserList'" :products="products"></product-list>
+                <product-new></product-new>
             </main>
         </div>
     </div>
