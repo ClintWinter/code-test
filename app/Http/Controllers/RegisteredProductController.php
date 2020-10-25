@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
 
 class RegisteredProductController extends Controller
@@ -32,9 +33,9 @@ class RegisteredProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
-        //
+        auth()->user()->products()->save($product);
     }
 
     /**
@@ -77,8 +78,8 @@ class RegisteredProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        auth()->user()->products()->detach($product);
     }
 }

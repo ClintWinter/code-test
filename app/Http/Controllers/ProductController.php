@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -47,7 +48,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return [
+            'product' => $product,
+            'imagePath' => $product->image_path ? Storage::url($product->image_path) : null,
+            'isRegistered' => auth()->user()->registered($product),
+        ];
     }
 
     /**

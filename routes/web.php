@@ -16,10 +16,11 @@ Route::get('/', function () {
 });
 
 Route::get('/product', [ProductController::class, 'index']);
+Route::get('/product/{product}', [ProductController::class, 'show']);
 
 Route::get('/user', [RegisteredProductController::class, 'index']);
-
-// Route::get()
+Route::post('/user/product/{product}', [RegisteredProductController::class, 'store']);
+Route::delete('/user/product/{product}', [RegisteredProductController::class, 'destroy']);
 
 Auth::routes();
 

@@ -84,9 +84,16 @@
             </nav>
 
             <main id="main">
-                <product-list v-if="activeSection == 'productList'" :products="products"></product-list>
-                <product-list v-else-if="activeSection == 'productUserList'" :products="products"></product-list>
+                <product-list v-if="activeSection == 'productList'"
+                    :products="products"
+                    v-on:show-product="showProduct"
+                ></product-list>
+                <product-list v-else-if="activeSection == 'productUserList'"
+                    :products="products"
+                    v-on:show-product="showProduct"
+                ></product-list>
                 <product-new v-else-if="activeSection == 'newProduct'"></product-new>
+                <product-show v-else-if="activeSection == 'showProduct'" :active-product="activeProduct" :user="{{ auth()->user() }}"></product-show>
             </main>
         </div>
     </div>

@@ -40,22 +40,22 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                formData: {
-                    name: '',
-                    price: 0,
-                    description: '',
-                },
-                errors: [],
-            }
-        },
+export default {
+    data() {
+        return {
+            formData: {
+                name: '',
+                price: 0,
+                description: '',
+            },
+            errors: [],
+        }
+    },
 
-        methods: {
-            createProduct() {
-                // create product
-            }
+    methods: {
+        createProduct() {
+            // create product
         }
     }
+}
 </script>

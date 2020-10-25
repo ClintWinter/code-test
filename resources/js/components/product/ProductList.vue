@@ -16,13 +16,13 @@
 </template>
 
 <script>
-    export default {
-        props: ['products'],
+export default {
+    props: ['products'],
 
-        methods: {
-            showProduct(product) {
-                this.$emit('showProduct', product);
-            }
+    methods: {
+        showProduct(product) {
+            this.$emit('show-product', product);
         }
     }
+}
 </script>

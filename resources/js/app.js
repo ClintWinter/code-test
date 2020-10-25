@@ -13,6 +13,11 @@ const app = new Vue({
     data: {
         activeSection: 'productList',
         products: [],
+        activeProduct: {
+            product: null,
+            imagePath: '',
+            isRegistered: false,
+        },
     },
 
     mounted() {
@@ -36,6 +41,19 @@ const app = new Vue({
 
         newProduct() {
             this.activeSection = 'newProduct';
+        },
+
+        showProduct(product) {
+            Axios.get('/product/'+product.id).then(response => {
+                let r = response.data;
+
+                this.activeProduct.product = r.product;
+                this.activeProduct.imagePath = r.imagePath;
+                this.activeProduct.isRegistered = r.isRegistered;
+                this.activeSection = 'showProduct';
+            }).catch(error => {
+                console.log(error);
+            });
         }
     }
 });
