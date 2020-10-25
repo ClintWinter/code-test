@@ -9,6 +9,11 @@
     <title>Code Test</title>
 </head>
 <body>
-    <h1 class="text-blue-500">tailwind test</h1>
+
+    <div id="app">
+
+    </div>
+
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
