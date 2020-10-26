@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\RegisteredProductController;
 
+// main app
 Route::get('/', function () {
     return view('app', [
         'products' => Product::all(),
@@ -16,6 +17,7 @@ Route::get('/', function () {
     ]);
 });
 
+// api routes
 Route::get('/product', [ProductController::class, 'index']);
 Route::middleware('auth')->group(function () {
     Route::post('/product', [ProductController::class, 'store'])->middleware('can:create,App\Product');
@@ -28,7 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/user/product/{product}', [RegisteredProductController::class, 'destroy'])->middleware('can:register,App\Product');
 
     Route::post('/product-image/{product}', [ProductImageController::class, 'store'])->middleware('can:update,product');
-    Route::delete('/product-image/{product}', [ProductImageController::class, 'destroy'])->middleware('can:update,product');
 });
 
 Auth::routes();

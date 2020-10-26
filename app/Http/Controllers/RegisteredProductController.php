@@ -36,6 +36,8 @@ class RegisteredProductController extends Controller
     public function store(Request $request, Product $product)
     {
         auth()->user()->products()->attach($product);
+
+        return true;
     }
 
     /**
@@ -81,5 +83,7 @@ class RegisteredProductController extends Controller
     public function destroy(Product $product)
     {
         auth()->user()->products()->detach($product);
+
+        return true;
     }
 }
