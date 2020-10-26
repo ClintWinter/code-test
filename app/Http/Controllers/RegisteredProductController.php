@@ -35,7 +35,7 @@ class RegisteredProductController extends Controller
      */
     public function store(Request $request, Product $product)
     {
-        auth()->user()->products()->save($product);
+        auth()->user()->products()->attach($product);
     }
 
     /**

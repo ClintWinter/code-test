@@ -87,11 +87,13 @@
             <main>
                 <product-list v-if="activeSection == 'productList'"
                     :products="products"
+                    :user="{{ auth()->user() ?? '{}' }}"
                     v-on:show-product="showProduct"
                 ></product-list>
 
                 <product-list v-else-if="activeSection == 'productUserList'"
                     :products="products"
+                    :user="{{ auth()->user() ?? '{}' }}"
                     v-on:show-product="showProduct"
                 ></product-list>
 
@@ -106,7 +108,7 @@
 
                 <product-show v-else-if="activeSection == 'showProduct'"
                     :active-product="activeProduct"
-                    :user="{{ auth()->user() }}"
+                    :user="{{ auth()->user() ?? '{}' }}"
                     v-on:edit-product="editProduct"
                     v-on:all-products="allProducts"
                     v-on:upload-image="uploadImage"

@@ -2069,8 +2069,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['products'],
+  props: ['products', 'user'],
   methods: {
     showProduct: function showProduct(product) {
       this.$emit('show-product', product);
@@ -2135,7 +2136,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       formData: {
         name: '',
-        price: 0,
+        price: null,
         description: ''
       },
       errors: []
@@ -3014,19 +3015,25 @@ var render = function() {
                 { staticClass: "border border-gray-300 rounded p-4 h-full" },
                 [
                   _c("div", { staticClass: "flex justify-between mb-4" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass:
-                          "font-bold text-lg leading-none text-blue-500 cursor-pointer over:underline",
-                        on: {
-                          click: function($event) {
-                            return _vm.showProduct(product)
-                          }
-                        }
-                      },
-                      [_vm._v(_vm._s(product.name))]
-                    ),
+                    _vm.user.id
+                      ? _c(
+                          "a",
+                          {
+                            staticClass:
+                              "font-bold text-lg leading-none text-blue-500 cursor-pointer hover:underline",
+                            on: {
+                              click: function($event) {
+                                return _vm.showProduct(product)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(product.name))]
+                        )
+                      : _c(
+                          "p",
+                          { staticClass: "font-bold text-lg leading-none" },
+                          [_vm._v(_vm._s(product.name))]
+                        ),
                     _vm._v(" "),
                     _c(
                       "div",

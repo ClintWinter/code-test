@@ -45,7 +45,7 @@ export default {
         return {
             formData: {
                 name: '',
-                price: 0,
+                price: null,
                 description: '',
             },
             errors: [],

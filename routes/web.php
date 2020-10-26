@@ -18,20 +18,17 @@ Route::get('/', function () {
 
 Route::get('/product', [ProductController::class, 'index']);
 Route::middleware('auth')->group(function () {
-    Route::post('/product', [ProductController::class, 'store']);
-    Route::get('/product/{product}', [ProductController::class, 'show']);
-    Route::post('/product/{product}', [ProductController::class, 'update']);
-    Route::delete('/product/{product}', [ProductController::class, 'destroy']);
+    Route::post('/product', [ProductController::class, 'store'])->middleware('can:create,App\Product');
+    Route::get('/product/{product}', [ProductController::class, 'show'])->middleware('can:view,product');
+    Route::post('/product/{product}', [ProductController::class, 'update'])->middleware('can:update,product');
+    Route::delete('/product/{product}', [ProductController::class, 'destroy'])->middleware('can:delete,product');
 
-    Route::get('/user/product', [RegisteredProductController::class, 'index']);
-    Route::post('/user/product/{product}', [RegisteredProductController::class, 'store']);
-    Route::delete('/user/product/{product}', [RegisteredProductController::class, 'destroy']);
+    Route::get('/user/product', [RegisteredProductController::class, 'index'])->middleware('can:register,App\Product');
+    Route::post('/user/product/{product}', [RegisteredProductController::class, 'store'])->middleware('can:register,App\Product');
+    Route::delete('/user/product/{product}', [RegisteredProductController::class, 'destroy'])->middleware('can:register,App\Product');
 
-    Route::post('/product-image/{product}', [ProductImageController::class, 'store']);
-    Route::delete('/product-image/{product}', [ProductImageController::class, 'destroy']);
+    Route::post('/product-image/{product}', [ProductImageController::class, 'store'])->middleware('can:update,product');
+    Route::delete('/product-image/{product}', [ProductImageController::class, 'destroy'])->middleware('can:update,product');
 });
 
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

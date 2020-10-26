@@ -4,7 +4,8 @@
             <div v-for="product in products" :key="product.id" class="w-1/3 p-2">
                 <div class="border border-gray-300 rounded p-4 h-full">
                     <div class="flex justify-between mb-4">
-                        <a @click="showProduct(product)" class="font-bold text-lg leading-none text-blue-500 cursor-pointer over:underline">{{ product.name }}</a>
+                        <a v-if="user.id" @click="showProduct(product)" class="font-bold text-lg leading-none text-blue-500 cursor-pointer hover:underline">{{ product.name }}</a>
+                        <p v-else class="font-bold text-lg leading-none">{{ product.name }}</p>
                         <div class="text-lg font-light text-gray-700">${{ product.price/100 }}</div>
                     </div>
                     <p class="leading-normal">{{ product.description }}</p>
@@ -17,7 +18,7 @@
 
 <script>
 export default {
-    props: ['products'],
+    props: ['products', 'user'],
 
     methods: {
         showProduct(product) {
